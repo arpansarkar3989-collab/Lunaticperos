@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LUNETICPEROS – Economical Eco Learning Kit</title>
+<meta name="description" content="One complete kit with 8 hands-on STEM activities in Electricity, Chemistry, Optics and Eco-Science. Safe, low-voltage and tool-free.">
+<meta name="theme-color" content="#0b0f19">
+<meta property="og:type" content="website">
+<meta property="og:title" content="LUNETICPEROS – Economical Eco Learning Kit">
+<meta property="og:description" content="One complete kit. 8 safe STEM activities in Electricity, Chemistry, Optics and Eco-Science.">
+<meta property="og:image" content="https://lh3.googleusercontent.com/d/1vJ3IoI-BJpSWjUtuWdMG0BZAFYgeQcD8=s512">
+<link rel="icon" href="https://lh3.googleusercontent.com/d/1vJ3IoI-BJpSWjUtuWdMG0BZAFYgeQcD8=s64">
+<script src="https://cdn.tailwindcss.com" defer></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+<style>
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{position:relative;background:#0b0f19;color:#e2e8f0;overflow-x:hidden;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:
+radial-gradient(ellipse 60% 50% at 15% 10%,rgba(56,189,248,.16),transparent 60%),
+radial-gradient(ellipse 50% 40% at 90% 30%,rgba(192,132,252,.13),transparent 60%),
+radial-gradient(ellipse 60% 50% at 50% 100%,rgba(16,185,129,.11),transparent 60%),#0b0f19}
+#stars{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+nav,main,footer{position:relative;z-index:1}
+nav{position:sticky;z-index:50}
+#progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);z-index:60;background:linear-gradient(90deg,#38bdf8,#c084fc,#10b981)}
+.glass{background:rgba(255,255,255,.035);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.08);border-radius:1.25rem}
+.grad{background:linear-gradient(100deg,#fff 10%,#38bdf8 40%,#c084fc 60%,#10b981 90%,#fff);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 7s ease-in-out infinite alternate}
+@keyframes shimmer{from{background-position:0% 50%}to{background-position:100% 50%}}
+.h-line{height:3px;width:64px;border-radius:3px;background:linear-gradient(90deg,#38bdf8,#10b981);margin:1rem auto 0}
+.word{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em}
+.word>span{display:inline-block}
+
+/* hero orbit */
+.orbit{position:relative;width:min(78vw,380px);aspect-ratio:1;margin:auto}
+.ring{position:absolute;inset:0;border-radius:50%;border:1px dashed rgba(255,255,255,.18);animation:spin 26s linear infinite}
+.ring2{inset:16%;border-color:rgba(56,189,248,.25);animation-duration:18s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.slot{position:absolute;inset:0;transform:rotate(var(--a))}
+.node{position:absolute;top:0;left:50%;width:52px;height:52px;margin:-26px 0 0 -26px;display:grid;place-items:center;border-radius:16px;font-size:20px;background:rgba(11,15,25,.85);border:1px solid var(--c);color:var(--c);box-shadow:0 0 18px var(--c);animation:counter 26s linear infinite}
+@keyframes counter{from{transform:rotate(calc(var(--a) * -1))}to{transform:rotate(calc(var(--a) * -1 - 360deg))}}
+.ring2 .node{animation-duration:18s;animation-direction:reverse;width:44px;height:44px;margin:-22px 0 0 -22px;font-size:17px}
+.core{position:absolute;inset:32%;border-radius:28%;overflow:hidden;border:1px solid rgba(56,189,248,.55);background:rgba(255,255,255,.05);animation:pulse 3.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 25px rgba(56,189,248,.35)}50%{box-shadow:0 0 60px rgba(56,189,248,.7)}}
+
+/* ticker */
+@keyframes scrollTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker{display:flex;width:max-content;animation:scrollTicker 30s linear infinite}
+
+.tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.06em;padding:.2rem .6rem;border-radius:9999px;border:1px solid var(--c);color:var(--c)}
+
+/* subject cards */
+.card{position:relative;overflow:hidden;transition:translate .35s,border-color .35s,box-shadow .35s}
+.card:hover{border-color:rgba(56,189,248,.4);translate:0 -.5rem;box-shadow:0 12px 30px -10px rgba(56,189,248,.25)}
+
+/* steps line */
+#stepLine{transform-origin:top;transform:scaleY(0)}
+
+#loader{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#0b0f19;animation:loaderFailsafe 0s linear 4s forwards;pointer-events:none}\n@keyframes loaderFailsafe{to{visibility:hidden;opacity:0}}
+.lbar{display:block;height:100%;width:100%;background:#38bdf8;transform-origin:0 50%;transform:scaleX(0);animation:load 1.1s ease forwards}
+@keyframes load{to{transform:scaleX(1)}}
+#waFloat{position:fixed;right:1rem;bottom:1rem;z-index:45;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:28px;background:#10b981;color:#052e22;animation:ring 2.4s ease-out infinite}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(16,185,129,.55)}80%,100%{box-shadow:0 0 0 18px rgba(16,185,129,0)}}
+#toTop{position:fixed;right:1.15rem;bottom:5.4rem;z-index:45;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;opacity:0;pointer-events:none;transition:opacity .3s}
+#toTop.show{opacity:1;pointer-events:auto}
+.navlink.active{color:#38bdf8}
+a:focus-visible,button:focus-visible{outline:2px solid #38bdf8;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.ticker,.ring,.node,.core,.grad,.scan,#waFloat,.lbar{animation:none}.lbar{transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a href="#top" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[200] focus:bg-sky-400 focus:text-slate-900 focus:px-4 focus:py-2 focus:rounded-lg">Skip to content</a>
+
+<div id="loader" role="status" aria-label="Loading">
+  <div class="text-center">
+    <img src="https://lh3.googleusercontent.com/d/1vJ3IoI-BJpSWjUtuWdMG0BZAFYgeQcD8=s220" alt="" width="80" height="80" class="w-20 h-20 rounded-2xl mx-auto border border-sky-400/50 shadow-[0_0_30px_rgba(56,189,248,.5)]" onerror="this.style.display='none'">
+    <div class="mt-5 mx-auto h-1 w-40 rounded bg-white/10 overflow-hidden"><i class="lbar"></i></div>
+  </div>
+</div>
+
+<div id="progress"></div>
+<svg id="stars" aria-hidden="true" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice"></svg>
+
+<a id="waFloat" href="https://wa.me/918471042746?text=I%20want%20to%20order%20the%20complete%20LUNETICPEROS%20Eco%20Learning%20Kit" target="_blank" rel="noopener" aria-label="Order on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<a id="toTop" href="#top" class="glass" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></a>
+
+<!-- NAV -->
+<nav class="top-0 border-b border-white/10" style="backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(11,15,25,.7)">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+    <a href="#top" class="flex items-center gap-3 min-w-0">
+      <span class="relative w-10 h-10 rounded-xl overflow-hidden border border-sky-400/50 shadow-[0_0_14px_rgba(56,189,248,.45)] shrink-0 bg-white/5 grid place-items-center font-bold text-sky-300">L
+        <img src="https://lh3.googleusercontent.com/d/1vJ3IoI-BJpSWjUtuWdMG0BZAFYgeQcD8=s220" alt="LUNETICPEROS logo" width="40" height="40" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'">
+      </span>
+      <span class="font-extrabold tracking-wide truncate">LUNETICPEROS</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-sm text-slate-300">
+      <a href="#about" data-nav="about" class="navlink hover:text-sky-400 transition">About</a>
+      <a href="#activities" data-nav="activities" class="navlink hover:text-sky-400 transition">Activities</a>
+      <a href="#how" data-nav="how" class="navlink hover:text-sky-400 transition">How It Works</a>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="https://wa.me/918471042746?text=I%20want%20to%20order%20the%20complete%20LUNETICPEROS%20Eco%20Learning%20Kit" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 text-sm font-semibold hover:bg-emerald-500/25 transition">
+        <i class="fa-brands fa-whatsapp"></i> Order the Kit
+      </a>
+      <button id="menuBtn" class="md:hidden w-10 h-10 grid place-items-center rounded-lg border border-white/10" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+  <div id="drawer" class="hidden md:hidden w-full border-t border-white/10 px-4 py-4 space-y-1" style="backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(11,15,25,.92)">
+    <a href="#about" class="block py-3 px-2 rounded-lg hover:bg-white/5">About</a>
+    <a href="#activities" class="block py-3 px-2 rounded-lg hover:bg-white/5">Activities</a>
+    <a href="#how" class="block py-3 px-2 rounded-lg hover:bg-white/5">How It Works</a>
+    <a href="https://wa.me/918471042746?text=I%20want%20to%20order%20the%20complete%20LUNETICPEROS%20Eco%20Learning%20Kit" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 mt-2 py-3 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-semibold"><i class="fa-brands fa-whatsapp"></i> Order the Kit</a>
+  </div>
+</nav>
+
+<main id="top">
+  <!-- HERO -->
+  <section id="hero" class="max-w-7xl mx-auto px-4 sm:px-6 pt-14 sm:pt-20 pb-16 grid lg:grid-cols-2 gap-12 items-center">
+    <div class="text-center lg:text-left" id="heroText">
+      <span class="hero-in inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-widest text-sky-300 border border-sky-400/50 shadow-[0_0_18px_rgba(56,189,248,.35)] bg-sky-400/5">ONE KIT · 8 ACTIVITIES</span>
+      <h1 id="h1" class="grad mt-6 text-4xl sm:text-6xl xl:text-7xl font-extrabold leading-[1.05]">Economical Eco Learning Kit</h1>
+      <p class="hero-in mt-6 max-w-xl mx-auto lg:mx-0 text-base sm:text-lg text-slate-300 leading-relaxed">One complete box with 8 hands-on STEM experiments in Electricity, Chemistry, Optics and Eco-Science. Safe, simple and affordable.</p>
+      <div class="hero-in mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+        <a href="https://wa.me/918471042746?text=I%20want%20to%20order%20the%20complete%20LUNETICPEROS%20Eco%20Learning%20Kit" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-emerald-500 text-slate-950 font-bold hover:shadow-[0_0_30px_rgba(16,185,129,.5)] transition"><i class="fa-brands fa-whatsapp text-lg"></i> Order the Complete Kit</a>
+        <a href="#activities" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full glass font-semibold hover:border-sky-400/40 hover:bg-white/10 transition">Explore 8 Activities <i class="fa-solid fa-arrow-down text-sm"></i></a>
+      </div>
+    </div>
+    <div class="hero-in" id="orbitWrap" aria-hidden="true">
+      <div class="orbit">
+        <div class="ring">
+          <div class="slot" style="--a:0deg"><div class="node" style="--c:#f59e0b;--a:0deg"><i class="fa-solid fa-bolt"></i></div></div>
+          <div class="slot" style="--a:180deg"><div class="node" style="--c:#c084fc;--a:180deg"><i class="fa-solid fa-flask"></i></div></div>
+        </div>
+        <div class="ring ring2">
+          <div class="slot" style="--a:90deg"><div class="node" style="--c:#fb7185;--a:90deg"><i class="fa-solid fa-eye"></i></div></div>
+          <div class="slot" style="--a:270deg"><div class="node" style="--c:#10b981;--a:270deg"><i class="fa-solid fa-leaf"></i></div></div>
+        </div>
+        <div class="core"><img src="https://lh3.googleusercontent.com/d/1vJ3IoI-BJpSWjUtuWdMG0BZAFYgeQcD8=s220" alt="" class="w-full h-full object-cover" onerror="this.style.display='none'"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 pb-16">
+    <div class="reveal glass grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-white/10 text-center">
+      <div class="p-6"><div class="text-3xl sm:text-4xl font-extrabold text-sky-400"><span class="count" data-to="1">0</span></div><p class="mt-1 text-sm text-slate-400">Complete Kit</p></div>
+      <div class="p-6"><div class="text-3xl sm:text-4xl font-extrabold text-emerald-400"><span class="count" data-to="8">0</span></div><p class="mt-1 text-sm text-slate-400">Activities Inside</p></div>
+      <div class="p-6"><div class="text-3xl sm:text-4xl font-extrabold text-purple-300">3–9V</div><p class="mt-1 text-sm text-slate-400">Low-Voltage Safe</p></div>
+      <div class="p-6"><div class="text-3xl sm:text-4xl font-extrabold text-amber-400"><span class="count" data-to="100">0</span>%</div><p class="mt-1 text-sm text-slate-400">Tool-Free Setup</p></div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="overflow-hidden border-y border-white/10 bg-white/[0.03] py-4" aria-label="Highlights">
+    <div class="ticker text-sm sm:text-base font-semibold text-slate-300" id="ticker"></div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 py-24 scroll-mt-16">
+    <div class="reveal text-center max-w-2xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold">About the Kit</h2>
+      <div class="h-line"></div>
+      <p class="mt-5 text-slate-400">LUNETICPEROS is a single, economical, eco-friendly learning kit that makes science practical for every child. Everything comes together in one box.</p>
+    </div>
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <article class="about-card glass card p-7">
+        <div class="w-12 h-12 grid place-items-center rounded-xl bg-amber-500/15 text-amber-400 text-xl"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+        <h3 class="mt-5 text-xl font-semibold">Affordable &amp; Value</h3>
+        <p class="mt-2 text-slate-400 leading-relaxed">8 experiments for the price of one box, so more students can experience real science.</p>
+      </article>
+      <article class="about-card glass card p-7">
+        <div class="w-12 h-12 grid place-items-center rounded-xl bg-emerald-500/15 text-emerald-400 text-xl"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3 class="mt-5 text-xl font-semibold">Safe by Design</h3>
+        <p class="mt-2 text-slate-400 leading-relaxed">Low-voltage 3–9V circuits and a tool-free setup, so children can build with confidence.</p>
+      </article>
+      <article class="about-card glass card p-7">
+        <div class="w-12 h-12 grid place-items-center rounded-xl bg-purple-400/15 text-purple-300 text-xl"><i class="fa-solid fa-graduation-cap"></i></div>
+        <h3 class="mt-5 text-xl font-semibold">Multi-Disciplinary STEM</h3>
+        <p class="mt-2 text-slate-400 leading-relaxed">Electricity, Chemistry, Optics and Eco-Science together in a single learning kit.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ACTIVITIES -->
+  <section id="activities" class="max-w-7xl mx-auto px-4 sm:px-6 py-24 scroll-mt-16">
+    <div class="reveal text-center max-w-2xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold">Kit Activities</h2>
+      <div class="h-line"></div>
+      <p class="mt-5 text-slate-400">All 8 activities come together in one kit. Tap any card to open its guidebook.</p>
+    </div>
+    <div id="actGrid" class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+  </section>
+
+  <!-- SUBJECTS -->
+  <section id="subjects" class="max-w-7xl mx-auto px-4 sm:px-6 py-24">
+    <div class="reveal text-center max-w-2xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold">4 Subjects, 1 Kit</h2>
+      <div class="h-line"></div>
+    </div>
+    <div id="subjectGrid" class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="max-w-3xl mx-auto px-4 sm:px-6 py-24 scroll-mt-16">
+    <div class="reveal text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold">How It Works</h2>
+      <div class="h-line"></div>
+    </div>
+    <div class="relative mt-14 pl-12" id="steps">
+      <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-white/10"></div>
+      <div id="stepLine" class="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-sky-400 to-emerald-400"></div>
+      <div class="step glass p-6 mb-8 relative"><span class="absolute -left-12 top-5 w-9 h-9 grid place-items-center rounded-full bg-sky-400 text-slate-900 font-bold">1</span><h3 class="text-lg font-semibold">Order the complete kit</h3><p class="mt-1 text-slate-400">Message us on WhatsApp and the whole box with all 8 activities is on its way.</p></div>
+      <div class="step glass p-6 mb-8 relative"><span class="absolute -left-12 top-5 w-9 h-9 grid place-items-center rounded-full bg-purple-300 text-slate-900 font-bold">2</span><h3 class="text-lg font-semibold">Open the guidebook</h3><p class="mt-1 text-slate-400">Tap any activity card to open its step-by-step PDF guide on your phone.</p></div>
+      <div class="step glass p-6 relative"><span class="absolute -left-12 top-5 w-9 h-9 grid place-items-center rounded-full bg-emerald-400 text-slate-900 font-bold">3</span><h3 class="text-lg font-semibold">Build, test and learn</h3><p class="mt-1 text-slate-400">No tools needed. Pick any activity and start experimenting.</p></div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 pb-28">
+    <div class="reveal glass p-10 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold">Get the Complete Kit</h2>
+      <p class="mt-4 text-slate-300">8 activities. 4 subjects. One box.</p>
+      <a href="https://wa.me/918471042746?text=I%20want%20to%20order%20the%20complete%20LUNETICPEROS%20Eco%20Learning%20Kit" target="_blank" rel="noopener" class="mt-8 inline-flex items-center gap-2 px-9 py-4 rounded-full bg-emerald-500 text-slate-950 font-bold hover:shadow-[0_0_30px_rgba(16,185,129,.5)] transition"><i class="fa-brands fa-whatsapp text-lg"></i> Order on WhatsApp</a>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-white/10 py-10 text-center text-sm text-slate-400 px-4">
+  <p class="font-semibold text-slate-200">LUNETICPEROS</p>
+  <p class="mt-1">Economical Eco Learning Kit</p>
+  <div class="mt-4 flex justify-center gap-6">
+    <a href="#about" class="hover:text-sky-400 transition">About</a>
+    <a href="#activities" class="hover:text-sky-400 transition">Activities</a>
+    <a href="https://wa.me/918471042746?text=I%20want%20to%20order%20the%20complete%20LUNETICPEROS%20Eco%20Learning%20Kit" target="_blank" rel="noopener" class="hover:text-emerald-400 transition">WhatsApp</a>
+  </div>
+  <p class="mt-5">© <span id="yr"></span> LUNETICPEROS. All rights reserved.</p>
+</footer>
+
+<script>
+/* 8 components of the single kit (not sold separately) */
+const ITEMS=[
+ {n:'Normal Motor Fan',l:'https://drive.google.com/file/d/1-82KQz_W1ZNti4V91jaOOsalozt0S6CO/view?usp=drivesdk',s:'Electricity',i:'fa-fan',c:'#f59e0b',d:'Build a working DC motor fan and see how electricity becomes motion.'},
+ {n:'DC Mini Water Pump',l:'https://drive.google.com/file/d/1gVEThO0BV13KbKEVl3YnjscvR53dQeaS/view?usp=drivesdk',s:'Electricity',i:'fa-faucet-drip',c:'#f59e0b',d:'Assemble a mini pump and learn how motors move water.'},
+ {n:'Litmus Paper Test',l:'https://drive.google.com/file/d/1uNmw7P-tJdK8yqyqOpkoymdPBEsQebR8/view?usp=drivesdk',s:'Chemistry',i:'fa-vial',c:'#c084fc',d:'Test everyday liquids and discover acids and bases by colour.'},
+ {n:'Magic Colouring',l:'https://drive.google.com/file/d/1x5S6WZ38Q1SRTCYQrta0N3xsd6tosV4m/view?usp=drivesdk',s:'Chemistry',i:'fa-wand-magic-sparkles',c:'#c084fc',d:'Write secret messages and reveal them with simple chemistry.'},
+ {n:'Laser Reflection Kit',l:'https://drive.google.com/file/d/1ABMmIUUQqKvJeY1dI_SVcdeRHXw8P9ZK/view?usp=drivesdk',s:'Optics',i:'fa-lightbulb',c:'#fb7185',d:'Bounce a beam off mirrors and explore the laws of reflection.'},
+ {n:'Kaleidoscope',l:'https://drive.google.com/file/d/1B6vtFp4mGtnJ5zan8Gi8NEqDON0ZP6DL/view?usp=drivesdk',s:'Optics',i:'fa-circle-nodes',c:'#fb7185',d:'Craft your own kaleidoscope and see how mirrors make patterns.'},
+ {n:'Seed Mounted Pencil',l:'https://drive.google.com/file/d/1Mdo6_r802w6BGMQBmXIE5mjBbdO09G6X/view?usp=drivesdk',s:'Eco Activity',i:'fa-seedling',c:'#10b981',d:'Write with it, then plant it and watch a seed grow.'},
+ {n:'Solar Panel Circuit',l:'https://drive.google.com/file/d/1JxQg97_A4X7mc-Sb_7TYFn3dRow53Qy1/view?usp=drivesdk',s:'Electricity',i:'fa-solar-panel',c:'#f59e0b',d:'Power a small circuit with sunlight and learn about clean energy.'}
+];
+const SUBJ=[
+ {s:'Electricity',i:'fa-bolt',c:'#f59e0b'},
+ {s:'Chemistry',i:'fa-flask',c:'#c084fc'},
+ {s:'Optics',i:'fa-eye',c:'#fb7185'},
+ {s:'Eco Activity',i:'fa-leaf',c:'#10b981'}
+];
+
+document.getElementById('actGrid').innerHTML=ITEMS.map(k=>`
+ <a href="${k.l}" target="_blank" rel="noopener" class="act glass card p-6 flex flex-col h-full" style="--c:${k.c}" aria-label="${k.n} guidebook (opens in new tab)">
+  <div class="w-12 h-12 grid place-items-center rounded-xl text-xl" style="color:${k.c};background:${k.c}22"><i class="fa-solid ${k.i}"></i></div>
+  <span class="tag mt-4 self-start">${k.s.toUpperCase()}</span>
+  <h3 class="mt-3 text-lg font-semibold">${k.n}</h3>
+  <p class="mt-2 text-sm text-slate-400 leading-relaxed flex-1">${k.d}</p>
+  <span class="mt-5 pt-4 border-t border-white/10 text-sm font-semibold flex items-center justify-between" style="color:${k.c}">View Guidebook <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+ </a>`).join('');
+
+document.getElementById('subjectGrid').innerHTML=SUBJ.map(u=>{
+ const list=ITEMS.filter(k=>k.s===u.s).map(k=>`<li class="flex gap-2"><i class="fa-solid fa-check mt-1 text-xs" style="color:${u.c}"></i>${k.n}</li>`).join('');
+ return `<article class="sub glass card p-6" style="border-color:${u.c}33">
+  <div class="w-12 h-12 grid place-items-center rounded-xl text-xl" style="color:${u.c};background:${u.c}22"><i class="fa-solid ${u.i}"></i></div>
+  <h3 class="mt-4 text-lg font-semibold">${u.s}</h3>
+  <ul class="mt-3 space-y-2 text-sm text-slate-400">${list}</ul></article>`}).join('');
+
+/* ticker */
+const tk=['One Complete Kit','8 Hands-On Activities','Electricity','Chemistry','Optics','Eco-Science','Low-Voltage 3–9V','Tool-Free Setup','Affordable'];
+document.getElementById('ticker').innerHTML=[...tk,...tk].map(t=>`<span class="px-8 flex items-center gap-8">${t}<i class="fa-solid fa-star text-sky-400 text-[10px]"></i></span>`).join('');
+
+/* stars */
+(function(){const s=document.getElementById('stars');let h='';for(let i=0;i<90;i++){h+=`<circle cx="${Math.random()*1000}" cy="${Math.random()*1000}" r="${(Math.random()*1.3+.3).toFixed(2)}" fill="#fff" opacity="${(Math.random()*.6+.15).toFixed(2)}"/>`}s.innerHTML=h;s.dataset.ready=1})();
+
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+/* menu */
+const mb=document.getElementById('menuBtn'),dr=document.getElementById('drawer');
+mb.addEventListener('click',()=>{const o=dr.classList.toggle('hidden');mb.setAttribute('aria-expanded',String(!o))});
+dr.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{dr.classList.add('hidden');mb.setAttribute('aria-expanded','false')}));
+
+/* loader: never leave the page covered if an image/CDN resource fails */
+(function(){
+  let loaderHidden = false;
+  function hideLoader(){
+    if(loaderHidden) return;
+    const loader = document.getElementById('loader');
+    if(!loader) return;
+    loaderHidden = true;
+    loader.style.transition = 'opacity .25s ease';
+    loader.style.opacity = '0';
+    loader.style.pointerEvents = 'none';
+    setTimeout(() => { if(loader.isConnected) loader.remove(); }, 280);
+  }
+  if(document.readyState === 'interactive' || document.readyState === 'complete'){
+    setTimeout(hideLoader, 250);
+  } else {
+    document.addEventListener('DOMContentLoaded', () => setTimeout(hideLoader, 250), {once:true});
+  }
+  // Last-resort fallback, independent of the window "load" event.
+  setTimeout(hideLoader, 2500);
+})();
+
+/* wrap h1 words */
+(function(){const h=document.getElementById('h1');h.innerHTML=h.textContent.split(' ').map(w=>`<span class="word"><span>${w}</span></span>`).join(' ')})();
+
+/* scroll-to-top */
+const tt=document.getElementById('toTop');
+addEventListener('scroll',()=>tt.classList.toggle('show',scrollY>600),{passive:true});
+
+/* ============ ANIMATIONS ============ */
+if(window.gsap&&window.ScrollTrigger&&!matchMedia('(prefers-reduced-motion:reduce)').matches){
+ gsap.registerPlugin(ScrollTrigger);
+
+ // page progress bar
+ gsap.to('#progress',{scaleX:1,ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.3}});
+
+ // hero intro
+ const tl=gsap.timeline({delay:.9});
+ tl.from('#h1 .word>span',{yPercent:110,duration:.9,stagger:.12,ease:'power4.out'})
+   .from('.hero-in',{y:30,opacity:0,duration:.8,stagger:.12,ease:'power3.out'},'-=.5');
+
+ // hero parallax on scroll
+ gsap.to('#heroText',{yPercent:-12,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+ gsap.to('#orbitWrap',{yPercent:18,rotate:12,scale:.85,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+
+ // starfield parallax
+ gsap.to('#stars',{yPercent:-12,ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:1}});
+
+ // generic reveals
+ gsap.utils.toArray('.reveal').forEach(el=>gsap.from(el,{y:60,opacity:0,scale:.97,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 85%'}}));
+ ScrollTrigger.batch('.about-card',{start:'top 88%',onEnter:b=>gsap.from(b,{y:70,opacity:0,rotateX:-12,duration:.9,stagger:.15,ease:'power3.out',overwrite:true})});
+ ScrollTrigger.batch('.act',{start:'top 92%',once:true,onEnter:b=>gsap.from(b,{y:50,duration:.7,stagger:.08,ease:'power3.out',overwrite:true,clearProps:'transform'})});
+ ScrollTrigger.batch('.sub',{start:'top 90%',onEnter:b=>gsap.from(b,{y:60,opacity:0,scale:.9,duration:.8,stagger:.12,ease:'back.out(1.4)',overwrite:true})});
+
+ // section headings underline grows
+ gsap.utils.toArray('.h-line').forEach(l=>gsap.from(l,{scaleX:0,duration:.8,ease:'power2.out',scrollTrigger:{trigger:l,start:'top 90%'}}));
+
+ // counters
+ document.querySelectorAll('.count').forEach(el=>{const to=+el.dataset.to,o={v:0};
+  ScrollTrigger.create({trigger:el,start:'top 90%',once:true,onEnter:()=>gsap.to(o,{v:to,duration:1.8,ease:'power2.out',onUpdate:()=>el.textContent=Math.round(o.v)})})});
+
+ // timeline steps
+ gsap.to('#stepLine',{scaleY:1,ease:'none',scrollTrigger:{trigger:'#steps',start:'top 70%',end:'bottom 70%',scrub:true}});
+ gsap.utils.toArray('.step').forEach(s=>gsap.from(s,{x:60,opacity:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:s,start:'top 85%'}}));
+
+ // nav highlight
+ ['about','activities','how'].forEach(id=>ScrollTrigger.create({trigger:'#'+id,start:'top 50%',end:'bottom 50%',
+  onToggle:s=>document.querySelectorAll('[data-nav="'+id+'"]').forEach(a=>a.classList.toggle('active',s.isActive))}));
+
+ addEventListener('load',()=>ScrollTrigger.refresh());
+}
+if('scrollRestoration' in history)history.scrollRestoration='manual';
+</script>
+</body>
+</html>
